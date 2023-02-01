@@ -1,0 +1,33 @@
+{
+  "name": "cleanblog",
+  "version": "1.0.0",
+  "description": "CLEAN BLOG",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismetcanbyk/CleanBlog.git"
+  },
+  "keywords": [
+    "Clean",
+    "Blog",
+    "App"
+  ],
+  "author": "ismet can bıyık",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ismetcanbyk/CleanBlog/issues"
+  },
+  "homepage": "https://github.com/ismetcanbyk/CleanBlog#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "prettier": "2.8.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
