@@ -1,14 +1,29 @@
 import express from 'express';
 import ejs from 'ejs';
+import Posts from './models/Posts.js';
+import mongoose from 'mongoose';
 
 const app = express();
 const port = 3000;
+
+//Connect DB
+
+mongoose.connect('mongodb://localhost/cleanBlog-db');
+
+//Template Engine
+
 app.set('view engine', 'ejs');
 
+//Midleware
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  const posts = await Posts.find({});
+  res.render('index', {
+    posts,
+  });
 });
 
 app.get('/about', (req, res) => {
@@ -21,6 +36,11 @@ app.get('/addPost', (req, res) => {
 
 app.get('/post', (req, res) => {
   res.render('post');
+});
+
+app.post('/addPost', async (req, res) => {
+  await Posts.create(req.body);
+  res.redirect('/');
 });
 
 app.listen(port, () => {
