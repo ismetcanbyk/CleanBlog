@@ -1,7 +1,8 @@
 import express from 'express';
-import ejs from 'ejs';
-import Posts from './models/Posts.js';
 import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import pageRoute from './routes/pageRoute.js';
+import postRoute from './routes/postRoute.js';
 
 const app = express();
 const port = 3000;
@@ -18,37 +19,18 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  methodOverride('_method', {
+    methods: ['POST', 'GET'],
+  })
+);
 
-app.get('/', async (req, res) => {
-  const posts = await Posts.find({});
-  res.render('index', {
-    posts,
-  });
-});
 
-app.get('/posts/:id', async (req, res) => {
-  const post = await Posts.findById(req.params.id);
-  res.render('post', {
-    post,
-  });
-});
+//Routes
 
-app.get('/about', (req, res) => {
-  res.render('about');
-});
+app.use('/', pageRoute);
+app.use('/post', postRoute);
 
-app.get('/addPost', (req, res) => {
-  res.render('add_post');
-});
-
-app.get('/post', (req, res) => {
-  res.render('post');
-});
-
-app.post('/addPost', async (req, res) => {
-  await Posts.create(req.body);
-  res.redirect('/');
-});
 
 app.listen(port, () => {
   console.log(`Sunucu ${port} de başlatıldı.`);
