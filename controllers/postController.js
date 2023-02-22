@@ -8,7 +8,15 @@ const showPost = async (req, res) => {
     });
 };
 
+
 const updatePost = async (req, res) => {
+    // let pageId = req.params.id;
+    // let photoData = req.body;
+    // console.log(pageId);
+    // console.log(photoData);
+    // Post.findByIdAndUpdate(pageId, { ...photoData }).then(() => res.redirect(`/post/${req.params.id}`))
+
+
     const post = await Post.findOne({ _id: req.params.id });
     post.title = req.body.title;
     post.description = req.body.description;
